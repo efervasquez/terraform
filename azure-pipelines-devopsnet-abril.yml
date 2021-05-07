@@ -10,6 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - script: echo Hello, world! Terraform Azure!
   displayName: 'Run a one-line script'
 - task: DownloadSecureFile@1
@@ -17,13 +18,14 @@ steps:
   inputs:
     secureFile: 'azure_rsa.pub'
     retryCount: '5'
+    
 - task: TerraformCLI@0
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/azure-terraform/kubernetes'
     secureVarsFile: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
     backendType: 'azurerm'
-    backendServiceArm: 'Azure-resource-afor225efvr'
+    backendServiceArm: 'Azure-cnx-AFORO255-efvr'
     ensureBackend: true
     backendAzureRmResourceGroupName: 'terraform-backend-efvr'
     backendAzureRmResourceGroupLocation: 'westeurope'
@@ -31,4 +33,3 @@ steps:
     backendAzureRmContainerName: 'storageacctaforo255fvcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
-
